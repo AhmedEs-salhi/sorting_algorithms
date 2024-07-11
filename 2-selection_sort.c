@@ -2,6 +2,23 @@
 #include <stdio.h>
 
 /**
+ * swapp - function that swap two integer numbers
+ *
+ * @a: the first number
+ * @b: the seconde number
+ *
+ */
+
+void swapp(int *a, int *b)
+{
+	int temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+/**
  * selection_sort - function that sort an array using the selection sort
  *
  * @array: the array to be sorted
@@ -21,7 +38,7 @@ void selection_sort(int *array, size_t size)
 			if (array[j] < array[min])
 				min = j;
 		}
-		swap(&array[min], &array[i]);
+		swapp(&array[min], &array[i]);
 		print_array(array, size);
 	}
 }
