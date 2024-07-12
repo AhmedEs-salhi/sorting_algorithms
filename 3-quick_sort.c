@@ -14,7 +14,7 @@ void swapping(int *array, size_t size, int *a, int *b)
 {
 	int temp;
 
-	if (a != b)
+	if (*a != *b)
 	{
 		temp = *a;
 		*a = *b;
