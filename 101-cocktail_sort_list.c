@@ -41,11 +41,7 @@ void cocktail_sort_list(listint_t **list)
 {
 	listint_t *start = NULL, *end = NULL, *current = *list;
 
-	if (!list)
-		return;
-	if (!(*list)->next)
-	       return;
-	if (!(*list))
+	if (!list || !(*list) || !(*list)->next)
 		return;
 
 	do {
