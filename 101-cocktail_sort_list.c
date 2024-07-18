@@ -39,13 +39,14 @@ void swapNodes(listint_t *current, listint_t *current_old, listint_t **list)
 
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *start, *end, *current = *list;
+	listint_t *start = NULL, *end = NULL, *current = *list;
 
-	if (!list || !(*list)->next || !(*list))
+	if (!list)
 		return;
-
-	start = NULL;
-	end = NULL;
+	if (!(*list)->next)
+	       return;
+	if (!(*list))
+		return;
 
 	do {
 		while (current->next)
