@@ -26,17 +26,39 @@ void swap1(int *a, int *b)
 
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, j;
+	size_t j, k;
+	size_t start, end;
+	bool sorted;
 
-	for (i = 0; i < size; i++)
+	start = 0;
+	end = size - 1;
+	sorted = true;
+	while(sorted)
 	{
-		for (j = 0; j < size - 1; j++)
+		sorted = false;
+		for (j = start; j < end; ++j)
 		{
 			if (array[j] > array[j + 1])
 			{
 				swap1(&array[j], &array[j + 1]);
+				sorted = true;
 				print_array(array, size);
 			}
 		}
+		if(!sorted)
+			break;
+
+		sorted = false;
+		--end;
+		for (k = end - 1; k >= start; --k)
+		{
+			if (array[k] > array[k + 1])
+			{
+				swap1(&array[k], &array[k + 1]);
+				sorted = true;
+				print_array(array, size);
+			}
+		}
+		++start;
 	}
 }
