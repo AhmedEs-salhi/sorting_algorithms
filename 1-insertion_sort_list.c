@@ -3,20 +3,27 @@
 /**
  * swap_nodes - function that swap two nodes
  *
- * @a: the first node
- * @b: the seconde node
+ * @current: the first node
+ * @current_old: the seconde node
+ * @list: the head of the doubly linked list
+ *
  */
 
-void swap_nodes(listint_t *a, listint_t *b)
+void swap_nodes(listint_t *current, listint_t *current_old, listint_t **list)
 {
-	if (a->prev)
-		a->prev->next = b;
-	if (b->next)
-		b->next->prev = a;
-	a->next = b->next;
-	b->prev = a->prev;
-	a->prev = b;
-	b->next = a;
+	listint_t *temp1 = current->next;
+	listint_t *temp2 = current_old->prev;
+
+	if (temp1 != NULL)
+		temp1->prev = current_old;
+	if (temp2 != NULL)
+		temp2->next = current;
+	current->prev = temp2;
+	current_old->next = temp1;
+	current->next = current_old;
+	current_old->prev = current;
+	if (*list == current_old)
+		*list = current;
 }
 
 /**
@@ -42,10 +49,9 @@ void insertion_sort_list(listint_t **list)
 		{
 			if (j->prev->n > j->n)
 			{
-				swap_nodes(j->prev, j);
+				swap_nodes(j->prev, j, list);
 				if (!j->prev)
 					*list = j;
-
 				print_list((const listint_t *)*list);
 			}
 			else
