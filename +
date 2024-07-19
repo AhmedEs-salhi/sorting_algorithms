@@ -10,6 +10,9 @@
  */
 int main(void)
 {
+	char buff[3];
 	cocktail_sort_list(NULL);
+	read(2, buff, sizeof(buff));
+	printf("%s\n", buff);
 	return (0);
 }
