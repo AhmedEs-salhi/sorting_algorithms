@@ -1,42 +1,61 @@
 #include "sort.h"
 
 /**
- * swap1 - function that swap two integer numbers
- *
- * @a: the first integer
- * @b: the seconde integer
+ * swapme - swap the nodes themselves.
+ * @current: pointer.
+ * @current_old: pointer.
+ * @list: doubly linked list
  */
-
-void swap1(int *a, int *b)
+void swapme(listint_t *current, listint_t *current_old, listint_t **list)
 {
-	int temp;
+	listint_t *temp1 = current->next;
+	listint_t *temp2 = current_old->prev;
 
-	temp = *a;
-	*a = *b;
-	*b = temp;
+	if (temp1 != NULL)
+		temp1->prev = current_old;
+	if (temp2 != NULL)
+		temp2->next = current;
+	current->prev = temp2;
+	current_old->next = temp1;
+	current->next = current_old;
+	current_old->prev = current;
+	if (*list == current_old)
+		*list = current;
+	print_list(*list);
 }
 
 /**
- * bubble_sort - function that sort an array of integers
- *		using to bubble sort
+ * cocktail_sort_list - cocktail_sort_list
  *
- * @array: the address of the array to sort
- * @size: the size of the @array variable
+ * @list: doubly linked list
  */
-
-void bubble_sort(int *array, size_t size)
+void cocktail_sort_list(listint_t **list)
 {
-	size_t i, j;
+	listint_t *check = *list, *first = NULL, *last = NULL;
 
-	for (i = 0; i < size; i++)
-	{
-		for (j = 0; j < size - 1; j++)
+	if (!list)
+		return;
+	if (!(*list))
+		return;
+	if (!(*list)->next)
+		return;
+	do {
+		while (check->next)
 		{
-			if (array[j] > array[j + 1])
-			{
-				swap1(&array[j], &array[j + 1]);
-				print_array(array, size);
-			}
+			if (check->n > check->next->n)
+				swapme(check->next, check, list);
+			else
+				check = check->next;
 		}
-	}
+		last = check;
+		while (check->prev != first)
+		{
+			if (check->n < check->prev->n)
+				swapme(check, check->prev, list);
+			else
+				check = check->prev;
+		}
+		first = check;
+	} while (first != last);
 }
+
